@@ -1,0 +1,6 @@
+[submodule "deckup-client"]
+	path = deckup-client
+	url = https://github.com/6ri4n/deckup-client.git
+[submodule "deckup-server"]
+	path = deckup-server
+	url = https://github.com/6ri4n/deckup-server.git
