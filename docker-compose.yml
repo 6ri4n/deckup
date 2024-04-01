@@ -14,9 +14,10 @@ services:
 
   deckup-db:
     container_name: deckup-db
-    image: mongo:5.0-nanoserver
+    image: mongo:5.0
     volumes:
       - db_data:/data/db
+      - ./mongo-init-script:/docker-entrypoint-initdb.d
     networks:
       - deckup-network
 
@@ -26,7 +27,7 @@ services:
     depends_on:
       - deckup-db
     env_file:
-      - .env
+      - ./deckup-server/.env
     networks:
       - deckup-network
 
