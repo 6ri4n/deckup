@@ -1,9 +1,7 @@
 version: "3"
 services:
   nginx:
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
+    build: ./nginx
     ports:
       - "8080:8080"
     depends_on:
@@ -13,21 +11,17 @@ services:
       - deckup-network
 
   deckup-client:
-    build:
-      dockerfile: Dockerfile
-      context: ./deckup-client
+    build: ./deckup-client
     networks:
       - deckup-network
 
   deckup-server:
-    build:
-      dockerfile: Dockerfile
-      context: ./deckup-server
+    build: ./deckup-server
     env_file:
       - .env
     networks:
       - deckup-network
 
-  networks:
-    deckup-network:
-      driver: bridge
+networks:
+  deckup-network:
+    driver: bridge
