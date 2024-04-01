@@ -1,26 +1,45 @@
 version: "3"
 services:
   nginx:
+    container_name: deckup-nginx
     build: ./nginx
     ports:
-      - "8080:8080"
+      - "8080:80"
     depends_on:
       - deckup-client
       - deckup-server
     networks:
       - deckup-network
 
-  deckup-client:
-    build: ./deckup-client
+  deckup-db:
+    container_name: deckup-db
+    image: mongo:5.0-nanoserver
+    volumes:
+      - db_data:/data/db
     networks:
       - deckup-network
 
   deckup-server:
+    container_name: deckup-server
     build: ./deckup-server
+    depends_on:
+      - deckup-db
     env_file:
       - .env
     networks:
       - deckup-network
+
+  deckup-client:
+    container_name: deckup-client
+    build: ./deckup-client
+    depends_on:
+      - deckup-server
+    networks:
+      - deckup-network
+
+volumes:
+  db_data:
+    driver: local
 
 networks:
   deckup-network:
