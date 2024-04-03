@@ -2,13 +2,11 @@ version: "3"
 services:
   nginx:
     container_name: deckup-nginx
-    build: ./nginx
+    build: .
     ports:
       - "8080:80"
     depends_on:
-      - deckup-client
       - deckup-server
-      - deckup-db
     networks:
       - deckup-network
 
@@ -28,14 +26,6 @@ services:
       - deckup-db
     env_file:
       - ./deckup-server/.env
-    networks:
-      - deckup-network
-
-  deckup-client:
-    container_name: deckup-client
-    build: ./deckup-client
-    depends_on:
-      - deckup-server
     networks:
       - deckup-network
 
